@@ -34,6 +34,15 @@ function show_cupcakes(){
     
 }
 
+function greenInput(message, input){
+     message.innerHTML = "Okay";
+     message.style.color = "green";
+     input.style.borderColor = "green";
+}
+function redInput(message, input){
+     message.style.color = "red";
+     input.style.borderColor = "red";
+}
 
 
 let usernameInput = document.querySelector("#customer-name");
@@ -41,66 +50,58 @@ let userCount = document.querySelector("#count");
 let selectType = document.querySelector("#type");
 let selectDeliveryTime = document.querySelector("#delivery-time");
 let selectAllergies = document.querySelector("#allergies");
+let spans = document.getElementsByTagName("span");
+let validationMsg1 = document.querySelector(".validation-1");
+let validationMsg2 = document.querySelector(".validation-2");
+let validationMsg3 = document.querySelector(".validation-3");
+let validationMsg4 = document.querySelector(".validation-4");
+let validationMsg5 = document.querySelector(".validation-5");
 
 let customerForm = document.querySelector(".customer-form")
 customerForm.addEventListener("submit", function validate(e) {
   //write code that validates the form
   e.preventDefault()
   if(usernameInput.value.length >= 5 && usernameInput.value.length <= 16){
-      document.querySelector(".validation-1").innerHTML = "Okay";
-      document.querySelector(".validation-1").style.color = "green";
-      usernameInput.style.borderColor = "green";
-      localStorage.setItem("user", JSON.stringify(usernameInput.value))
+      greenInput(validationMsg1, usernameInput);
+      localStorage.setItem("user", JSON.stringify(usernameInput.value));
   }else {
     document.querySelector(".validation-1").innerHTML = "The name must be between 5 and 16 character long";
-    document.querySelector(".validation-1").style.color = "red";
-    usernameInput.style.borderColor = "red"
+    redInput(validationMsg1, usernameInput);
   }
   if (userCount.value.length >= 1 && userCount.value.length <= 15){
-    document.querySelector(".validation-2").innerHTML = "Okay";
-    document.querySelector(".validation-2").style.color = "green";
-    userCount.style.borderColor = "green";
+    greenInput(validationMsg2, userCount);
   } else{
     document.querySelector(".validation-2").innerHTML = "The count must be between 1 and 15 character long";
-    document.querySelector(".validation-2").style.color = "red";
-    userCount.style.borderColor = "red";
+    redInput(validationMsg2, userCount);
   }
   if(selectType.value === "none"){
     document.querySelector(".validation-3").innerHTML = "None is not accepted";
-    document.querySelector(".validation-3").style.color = "red";
-    selectType.style.borderColor = "red";
+    redInput(validationMsg3, selectType);
   } else {
-    document.querySelector(".validation-3").innerHTML = "Okay";
-    document.querySelector(".validation-3").style.color = "green";
-    selectType.style.borderColor = "green";
+    greenInput(validationMsg3, selectType);
   }
   if(selectDeliveryTime.value === "none"){
     document.querySelector(".validation-4").innerHTML = "None is not accepted";
-    document.querySelector(".validation-4").style.color = "red";
-    selectDeliveryTime.style.borderColor = "red";
+    redInput(validationMsg4, selectDeliveryTime);
   } else {
-    document.querySelector(".validation-4").innerHTML = "Okay";
-    document.querySelector(".validation-4").style.color = "green";
-    selectDeliveryTime.style.borderColor = "green";
+    greenInput(validationMsg4, selectDeliveryTime);
+
   } if(selectDeliveryTime.value === "4:00pm" && selectType.value === "chocolate"){
     document.querySelector(".validation-4").innerHTML = "Unfortunately Chocolate cupcakes cannot be delivered at 4pm";
-    document.querySelector(".validation-4").style.color = "red";
-    selectDeliveryTime.style.borderColor = "red";
+    redInput(validationMsg4, selectDeliveryTime);
   } if(selectAllergies.value === "dairy-free" && selectType.value === "chocolate"){
     document.querySelector(".validation-5").innerHTML = "This type of cake is not dairy-free";
-    document.querySelector(".validation-5").style.color = "red";
-    selectAllergies.style.borderColor = "red";
+    redInput(validationMsg5, selectAllergies);
   } else if(selectAllergies.value === "nut-free" && selectType.value === "pecan"){
     document.querySelector(".validation-5").innerHTML = "This type of cake is not nut-free";
-    document.querySelector(".validation-5").style.color = "red";
-    selectAllergies.style.borderColor = "red"
+    redInput(validationMsg5, selectAllergies);
   } else {
-      document.querySelector(".validation-5").innerHTML = "Okay";
-document.querySelector(".validation-5").style.color = "green";
-selectAllergies.style.borderColor = "green";
+    greenInput(validationMsg5, selectAllergies);
   }
   
 })
+
+
 
 function show_storage(){
     //write code that shows the name from local storage
