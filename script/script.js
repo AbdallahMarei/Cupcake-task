@@ -102,12 +102,11 @@ selectAllergies.style.borderColor = "green";
   
 })
 
-  
-
-
-
 function show_storage(){
     //write code that shows the name from local storage
     let userName = JSON.parse(localStorage.getItem("user"));
-    document.getElementById("welcome").innerHTML = `Welcome ${userName}`;
+    if(userName){
+      document.getElementById("welcome").innerHTML = `Welcome ${userName}`;
+    }
+
 }
